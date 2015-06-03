@@ -34,21 +34,13 @@ void pauseSec(int sec);
 
 int main()
 {
-	FILE *led;
-
-	led = fopen("/sys/class/leds/beaglebone:green:usr3/brightness", "w");
-
-	while(1)
-	{
-		fprintf(led,"%d",1);
-		fflush(led);
-		pauseSec(1);
-		fprintf(led,"%d",0);
-		fflush(led);
-		pauseSec(1);
+	var b = require('bonescript');
+	b.pinMode('P8_19', b.INPUT);
+	b.digitalRead('P8_19', printStatus);
+	function printStatus(x) {
+		console.log('x.value = ' + x.value);
+		console.log('x.err = ' + x.err);
 	}
-
-	fclose(led);
 	return 0;
 }
 
